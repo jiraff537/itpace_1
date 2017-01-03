@@ -1,8 +1,11 @@
 package com.simbirsoft.itplace;
 
+import com.simbirsoft.itplace.service.api.SummaryService;
+import com.simbirsoft.itplace.service.impl.SummaryServiceImpl;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        SummaryService summaryService = new SummaryServiceImpl("resources/properties/person.properties");
     }
 }

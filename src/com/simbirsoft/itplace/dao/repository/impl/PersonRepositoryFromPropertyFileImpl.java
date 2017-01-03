@@ -6,13 +6,22 @@ import com.simbirsoft.itplace.domain.entity.PersonalData;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+/**
+ * Реализация PersonRepository. Позволяет получать данные из .properties файлов.
+ *
+ * @author an.stratonov
+ * @version 1.0
+ */
 public class PersonRepositoryFromPropertyFileImpl implements PersonRepository {
 
-    Properties personDataFile;
+    private Properties personDataFile;
 
-    PersonRepositoryFromPropertyFileImpl(InputStream configFileInput){
+    public PersonRepositoryFromPropertyFileImpl(InputStream configFileInput){
         this.personDataFile = getProperties(configFileInput);
     }
 
@@ -36,8 +45,25 @@ public class PersonRepositoryFromPropertyFileImpl implements PersonRepository {
         return null;
     }
 
+    /**
+     * Метод преобразует Properties файл в map
+     * Совеутю посмотреть: http://www.leveluplunch.com/java/examples/convert-properties-to-map/
+     * @param properties - файл со свойствами
+     * @return - возвращает Map объект со свойствами
+     */
+    private Map<String, String> generateMapFromProperties(Properties properties){
+        Stream<Map.Entry<Object, Object>> stream = properties.entrySet().stream();
+        return stream.collect(Collectors.toMap(
+                e -> String.valueOf(e.getKey()),
+                e -> String.valueOf(e.getValue())));
+    }
+
     @Override
     public PersonalData getPersonalData() {
-        return null;
+        PersonalData personalData = null;
+        if(this.personDataFile != null){
+            Map<String, String> propertyMap = generateMapFromProperties(this.personDataFile);
+        }
+        return personalData;
     }
 }
