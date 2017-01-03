@@ -1,4 +1,4 @@
-package com.company;
+package com.simbirsoft.itplace;
 
 public class Main {
 
