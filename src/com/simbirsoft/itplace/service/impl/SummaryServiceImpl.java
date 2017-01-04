@@ -15,7 +15,7 @@ import java.io.IOException;
 public class SummaryServiceImpl implements SummaryService {
 
     /**
-     * @see {@link PersonalData}
+     * @see PersonalData
      */
     private PersonalData personalData;
 

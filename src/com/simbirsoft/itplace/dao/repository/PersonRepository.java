@@ -12,7 +12,7 @@ public interface PersonRepository {
 
     /**
      * получение персональных данных из хранилища
-     * @return @see {@link PersonalData}
+     * @return {@link PersonalData}
      */
     PersonalData getPersonalData();
 }

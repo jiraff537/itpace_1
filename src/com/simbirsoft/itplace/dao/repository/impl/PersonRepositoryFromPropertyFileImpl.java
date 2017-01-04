@@ -49,7 +49,7 @@ public class PersonRepositoryFromPropertyFileImpl implements PersonRepository {
     }
 
     /**
-     * @see {@link PersonRepository}
+     * @see PersonRepository
      */
     @Override
     public PersonalData getPersonalData() {
