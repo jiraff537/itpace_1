@@ -1,24 +1,27 @@
 package com.simbirsoft.itplace.dao.repository.impl;
 
+import com.simbirsoft.itplace.common.constants.PersonPropertyKeys;
 import com.simbirsoft.itplace.dao.repository.PersonRepository;
 import com.simbirsoft.itplace.domain.entity.PersonalData;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.Properties;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
- * Реализация PersonRepository. Позволяет получать данные из .properties файлов.
+ * Реализация репозитория @see {@link PersonRepository}
  *
  * @author an.stratonov
  * @version 1.0
  */
 public class PersonRepositoryFromPropertyFileImpl implements PersonRepository {
 
+    /**
+     * Свойство - опыт работы
+     */
     private Properties personDataFile;
 
     public PersonRepositoryFromPropertyFileImpl(InputStream configFileInput){
@@ -34,7 +37,7 @@ public class PersonRepositoryFromPropertyFileImpl implements PersonRepository {
     private Properties getProperties(InputStream configFileInput) {
         Properties property = new Properties();
         try {
-            property.load(configFileInput);
+            property.load(new InputStreamReader(configFileInput, Charset.forName("UTF-8")));
             return property;
         } catch (FileNotFoundException e) {
             System.out.println("Не найден файл настроек");
@@ -46,23 +49,26 @@ public class PersonRepositoryFromPropertyFileImpl implements PersonRepository {
     }
 
     /**
-     * Метод преобразует Properties файл в map
-     * Совеутю посмотреть: http://www.leveluplunch.com/java/examples/convert-properties-to-map/
-     * @param properties - файл со свойствами
-     * @return - возвращает Map объект со свойствами
+     * @see {@link PersonRepository}
      */
-    private Map<String, String> generateMapFromProperties(Properties properties){
-        Stream<Map.Entry<Object, Object>> stream = properties.entrySet().stream();
-        return stream.collect(Collectors.toMap(
-                e -> String.valueOf(e.getKey()),
-                e -> String.valueOf(e.getValue())));
-    }
-
     @Override
     public PersonalData getPersonalData() {
         PersonalData personalData = null;
         if(this.personDataFile != null){
-            Map<String, String> propertyMap = generateMapFromProperties(this.personDataFile);
+            personalData = new PersonalData(
+                    personDataFile.getProperty(PersonPropertyKeys.FIO),
+                    personDataFile.getProperty(PersonPropertyKeys.DOB),
+                    personDataFile.getProperty(PersonPropertyKeys.PHONE),
+                    personDataFile.getProperty(PersonPropertyKeys.EMAIL),
+                    personDataFile.getProperty(PersonPropertyKeys.SKYPE),
+                    personDataFile.getProperty(PersonPropertyKeys.AVATAR),
+                    personDataFile.getProperty(PersonPropertyKeys.TARGET),
+                    personDataFile.getProperty(PersonPropertyKeys.EXPERIENCES),
+                    personDataFile.getProperty(PersonPropertyKeys.EDUCATIONS),
+                    personDataFile.getProperty(PersonPropertyKeys.ADDITIONAL_EDUCATIONS),
+                    personDataFile.getProperty(PersonPropertyKeys.SKILLS),
+                    personDataFile.getProperty(PersonPropertyKeys.EXAMPLES_CODE)
+            );
         }
         return personalData;
     }

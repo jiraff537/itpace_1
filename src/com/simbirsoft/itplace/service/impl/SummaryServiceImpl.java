@@ -5,10 +5,24 @@ import com.simbirsoft.itplace.dao.repository.impl.PersonRepositoryFromPropertyFi
 import com.simbirsoft.itplace.domain.entity.PersonalData;
 import com.simbirsoft.itplace.service.api.SummaryService;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+/**
+ * Реализация интерфейса @see {@link SummaryService}
+ */
 public class SummaryServiceImpl implements SummaryService {
 
-    PersonalData personalData;
+    /**
+     * @see {@link PersonalData}
+     */
+    private PersonalData personalData;
 
+    /**
+     * Метод для подключения .properties файла
+     * @param propertyFilePath - путь к .properties файла
+     */
     public SummaryServiceImpl(String propertyFilePath){
         PersonRepository personRepository = new PersonRepositoryFromPropertyFileImpl(
                 getClass().getClassLoader().getResourceAsStream(propertyFilePath)
@@ -17,35 +31,86 @@ public class SummaryServiceImpl implements SummaryService {
     }
 
     @Override
-    public void createHtmlFile(String Path) {
-
-        String html = "<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<head>\n" +
-                "    <style>\n" +
-                "        #body{position:relative;min-height:100%;width:100%;word-wrap: break-word;}\n" +
-                "        #bg-left{position:absolute;top:0px;left:0px;bottom:0px;width:65%;z-index:1;}\n" +
-                "        #bg-right{position:absolute;top:0px;right:0px;bottom:0px;width:35%;z-index:1}\n" +
-                "    </style>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<div id=\"body\">\n" +
-                "    Резюме\n" +
-                "    на должность Java-стажер\n" +
-                "    <div id=\"bg-left\">\n" +
-                "        <h4>\n" +
-                "            Стратонов Алексей Николаевич\n" +
-                "            Дата рождения: 20.06.1994 г.\n" +
-                "            Адрес проживания: г. Ульяновск.\n" +
-                "            пр. Героя России Аврьянова, д. 2, кв 130\n" +
-                "            Телефон: моб. 8(927)632-89-84\n" +
-                "            e-mail: an.stratonov@gmail.com\n" +
-                "            Skype: alexstrat2008\n" +
-                "        </h4>\n" +
-                "    </div>\n" +
-                "    <div id=\"bg-right\"><img src=\"https://pp.vk.me/c604420/v604420985/31f0f/_MS61ivGiMM.jpg\" height=\"150\"></div>\n" +
-                "</div>\n" +
-                "</body>\n" +
-                "</html>";
+    public void createHtmlFile(String pathHtmlFile) {
+        if (this.personalData != null){
+            String html = "<!DOCTYPE html>\n" +
+                    "<html lang=\"ru\">\n" +
+                    "<head>\n" +
+                    "    <title>Резюме</title>\n" +
+                    "    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"\n" +
+                    "          integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\n" +
+                    "          crossorigin=\"anonymous\">\n" +
+                    "    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"\n" +
+                    "            integrity=\"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa\"\n" +
+                    "            crossorigin=\"anonymous\"></script>\n" +
+                    "    <style>\n" +
+                    "        body{background: darkgray; padding: 10px 0;}\n" +
+                    "        .container { max-width: 50%; background: white; padding: 10px;}\n" +
+                    "    </style>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "    <div class=\"container\">\n" +
+                    "        <h4 class=\"text-center\"><strong>Резюме</strong><p>на должность Java-стажер</p></h4>\n" +
+                    "        <div class=\"row\">\n" +
+                    "            <div class=\"col-xs-8 col-md-8\">\n" +
+                    "                <dl class=\"dl-horizontal\">\n" +
+                    "                    <dt>ФИО:</dt><dd>" + personalData.getFIO() + "</dd>\n" +
+                    "                    <dt>Дата рождения:</dt><dd>" + personalData.getDOB() + "</dd>\n" +
+                    "                    <dt>Телефон:</dt><dd>" + personalData.getPhone() + "/dd>\n" +
+                    "                    <dt>e-mail:</dt><dd>" + personalData.getEmail() + "</dd>\n" +
+                    "                    <dt>Skype:</dt><dd>" + personalData.getSkype() + "</dd>\n" +
+                    "                </dl></div>\n" +
+                    "            <div class=\"col-xs-4 col-md-4\">\n" +
+                    "                <img src=\"" + personalData.getAvatar() + "\" width=\"100%\">\n" +
+                    "            </div>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"card card-block\">\n" +
+                    "            <h4 class=\"card-title\"><strong>Цель:</strong></h4>\n" +
+                    "            <p class=\"card-text\">" + personalData.getTarget() + "</p>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"card card-block\">\n" +
+                    "            <h4 class=\"card-title\"><strong>Опыт работы:</strong></h4>\n" +
+                    "            <ol class=\"card-text\">\n"
+                                    + personalData.getExperiences() +
+                    "            </ol>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"card card-block\">\n" +
+                    "            <h4 class=\"card-title\"><strong>Образование:</strong></h4>\n" +
+                    "            <p class=\"card-text\">" + personalData.getEducations() + "</p>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"card card-block\">\n" +
+                    "            <h4 class=\"card-title\"><strong>Доп. образ. и курсы:</strong></h4>\n" +
+                    "            <ol class=\"card-text\">\n"
+                                    + personalData.getAdditionalEducations() +
+                    "            </ol>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"card card-block\">\n" +
+                    "            <h4 class=\"card-title\"><strong>Навыки:</strong></h4>\n" +
+                    "            <ol class=\"card-text\">\n"
+                                    + personalData.getSkills() +
+                    "            </ol>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"card card-block\">\n" +
+                    "            <h4 class=\"card-title\"><strong>Примеры моего кода:</strong></h4>\n" +
+                    "            <div class=\"card-text\">\n"
+                                    + personalData.getExamplesCode() +
+                    "            </div>\n" +
+                    "        </div>\n" +
+                    "    </div>\n" +
+                    "</body>\n" +
+                    "</html>";
+            try {
+                File file = new File (pathHtmlFile);
+                if(!file.exists()){
+                    file.createNewFile();
+                }
+                FileWriter writer = new FileWriter(pathHtmlFile, false);
+                writer.write(html);
+                writer.flush();
+            }
+            catch(IOException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 }
