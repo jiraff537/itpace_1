@@ -100,7 +100,7 @@ public class SummaryServiceImpl implements SummaryService {
                     "</body>\n" +
                     "</html>";
             try {
-                File file = new File (pathHtmlFile);
+                File file = new File(pathHtmlFile);
                 if(!file.exists()){
                     file.createNewFile();
                 }
