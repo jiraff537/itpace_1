@@ -12,7 +12,7 @@ import com.simbirsoft.itplace.service.impl.SummaryServiceImpl;
 public class Main {
 
     public static void main(String[] args) {
-        SummaryService summaryService = new SummaryServiceImpl("resources/properties/person.properties");
+        SummaryService summaryService = new SummaryServiceImpl("src/main/resources/person.properties");
         summaryService.createHtmlFile("web/summary.html");
     }
 }
