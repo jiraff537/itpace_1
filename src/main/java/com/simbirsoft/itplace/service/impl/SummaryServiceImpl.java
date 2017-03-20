@@ -33,71 +33,71 @@ public class SummaryServiceImpl implements SummaryService {
     @Override
     public void createHtmlFile(String pathHtmlFile) {
         if (this.personalData != null){
-            String html = "<!DOCTYPE html>\n" +
-                    "<html lang=\"ru\">\n" +
-                    "<head>\n" +
-                    "    <title>Резюме</title>\n" +
-                    "    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"\n" +
-                    "          integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\n" +
-                    "          crossorigin=\"anonymous\">\n" +
-                    "    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"\n" +
-                    "            integrity=\"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa\"\n" +
-                    "            crossorigin=\"anonymous\"></script>\n" +
-                    "    <style>\n" +
-                    "        body{background: darkgray; padding: 10px 0;}\n" +
-                    "        .container { max-width: 50%; background: white; padding: 10px;}\n" +
-                    "    </style>\n" +
-                    "</head>\n" +
-                    "<body>\n" +
-                    "    <div class=\"container\">\n" +
-                    "        <h4 class=\"text-center\"><strong>Резюме</strong><p>на должность Java-стажер</p></h4>\n" +
-                    "        <div class=\"row\">\n" +
-                    "            <div class=\"col-xs-8 col-md-8\">\n" +
-                    "                <dl class=\"dl-horizontal\">\n" +
-                    "                    <dt>ФИО:</dt><dd>" + personalData.getFIO() + "</dd>\n" +
-                    "                    <dt>Дата рождения:</dt><dd>" + personalData.getDOB() + "</dd>\n" +
-                    "                    <dt>Телефон:</dt><dd>" + personalData.getPhone() + "/dd>\n" +
-                    "                    <dt>e-mail:</dt><dd>" + personalData.getEmail() + "</dd>\n" +
-                    "                    <dt>Skype:</dt><dd>" + personalData.getSkype() + "</dd>\n" +
-                    "                </dl></div>\n" +
-                    "            <div class=\"col-xs-4 col-md-4\">\n" +
-                    "                <img src=\"" + personalData.getAvatar() + "\" width=\"100%\">\n" +
-                    "            </div>\n" +
-                    "        </div>\n" +
-                    "        <div class=\"card card-block\">\n" +
-                    "            <h4 class=\"card-title\"><strong>Цель:</strong></h4>\n" +
-                    "            <p class=\"card-text\">" + personalData.getTarget() + "</p>\n" +
-                    "        </div>\n" +
-                    "        <div class=\"card card-block\">\n" +
-                    "            <h4 class=\"card-title\"><strong>Опыт работы:</strong></h4>\n" +
-                    "            <ol class=\"card-text\">\n"
+            String html = "<!DOCTYPE html>\r\n" +
+                    "<html lang=\"ru\">\r\n" +
+                    "<head>\r\n" +
+                    "    <title>Резюме</title>\r\n" +
+                    "    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"\r\n" +
+                    "          integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\r\n" +
+                    "          crossorigin=\"anonymous\">\r\n" +
+                    "    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"\r\n" +
+                    "            integrity=\"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa\"\r\n" +
+                    "            crossorigin=\"anonymous\"></script>\r\n" +
+                    "    <style>\r\n" +
+                    "        body{background: darkgray; padding: 10px 0;}\r\n" +
+                    "        .container { max-width: 50%; background: white; padding: 10px;}\r\n" +
+                    "    </style>\r\n" +
+                    "</head>\r\n" +
+                    "<body>\r\n" +
+                    "    <div class=\"container\">\r\n" +
+                    "        <h4 class=\"text-center\"><strong>Резюме</strong><p>на должность Java-стажер</p></h4>\r\n" +
+                    "        <div class=\"row\">\r\n" +
+                    "            <div class=\"col-xs-8 col-md-8\">\r\n" +
+                    "                <dl class=\"dl-horizontal\">\r\n" +
+                    "                    <dt>ФИО:</dt><dd>" + personalData.getFIO() + "</dd>\r\n" +
+                    "                    <dt>Дата рождения:</dt><dd>" + personalData.getDOB() + "</dd>\r\n" +
+                    "                    <dt>Телефон:</dt><dd>" + personalData.getPhone() + "/dd>\r\n" +
+                    "                    <dt>e-mail:</dt><dd>" + personalData.getEmail() + "</dd>\r\n" +
+                    "                    <dt>Skype:</dt><dd>" + personalData.getSkype() + "</dd>\r\n" +
+                    "                </dl></div>\r\n" +
+                    "            <div class=\"col-xs-4 col-md-4\">\r\n" +
+                    "                <img src=\"" + personalData.getAvatar() + "\" width=\"100%\">\r\n" +
+                    "            </div>\r\n" +
+                    "        </div>\r\n" +
+                    "        <div class=\"card card-block\">\r\n" +
+                    "            <h4 class=\"card-title\"><strong>Цель:</strong></h4>\r\n" +
+                    "            <p class=\"card-text\">" + personalData.getTarget() + "</p>\r\n" +
+                    "        </div>\r\n" +
+                    "        <div class=\"card card-block\">\r\n" +
+                    "            <h4 class=\"card-title\"><strong>Опыт работы:</strong></h4>\r\n" +
+                    "            <ol class=\"card-text\">\r\n"
                                     + personalData.getExperiences() +
-                    "            </ol>\n" +
-                    "        </div>\n" +
-                    "        <div class=\"card card-block\">\n" +
-                    "            <h4 class=\"card-title\"><strong>Образование:</strong></h4>\n" +
-                    "            <p class=\"card-text\">" + personalData.getEducations() + "</p>\n" +
-                    "        </div>\n" +
-                    "        <div class=\"card card-block\">\n" +
-                    "            <h4 class=\"card-title\"><strong>Доп. образ. и курсы:</strong></h4>\n" +
-                    "            <ol class=\"card-text\">\n"
+                    "            </ol>\r\n" +
+                    "        </div>\r\n" +
+                    "        <div class=\"card card-block\">\r\n" +
+                    "            <h4 class=\"card-title\"><strong>Образование:</strong></h4>\r\n" +
+                    "            <p class=\"card-text\">" + personalData.getEducations() + "</p>\r\n" +
+                    "        </div>\r\n" +
+                    "        <div class=\"card card-block\">\r\n" +
+                    "            <h4 class=\"card-title\"><strong>Доп. образ. и курсы:</strong></h4>\r\n" +
+                    "            <ol class=\"card-text\">\r\n"
                                     + personalData.getAdditionalEducations() +
-                    "            </ol>\n" +
-                    "        </div>\n" +
-                    "        <div class=\"card card-block\">\n" +
-                    "            <h4 class=\"card-title\"><strong>Навыки:</strong></h4>\n" +
-                    "            <ol class=\"card-text\">\n"
+                    "            </ol>\r\n" +
+                    "        </div>\r\n" +
+                    "        <div class=\"card card-block\">\r\n" +
+                    "            <h4 class=\"card-title\"><strong>Навыки:</strong></h4>\r\n" +
+                    "            <ol class=\"card-text\">\r\n"
                                     + personalData.getSkills() +
-                    "            </ol>\n" +
-                    "        </div>\n" +
-                    "        <div class=\"card card-block\">\n" +
-                    "            <h4 class=\"card-title\"><strong>Примеры моего кода:</strong></h4>\n" +
-                    "            <div class=\"card-text\">\n"
+                    "            </ol>\r\n" +
+                    "        </div>\r\n" +
+                    "        <div class=\"card card-block\">\r\n" +
+                    "            <h4 class=\"card-title\"><strong>Примеры моего кода:</strong></h4>\r\n" +
+                    "            <div class=\"card-text\">\r\n"
                                     + personalData.getExamplesCode() +
-                    "            </div>\n" +
-                    "        </div>\n" +
-                    "    </div>\n" +
-                    "</body>\n" +
+                    "            </div>\r\n" +
+                    "        </div>\r\n" +
+                    "    </div>\r\n" +
+                    "</body>\r\n" +
                     "</html>";
             try {
                 File file = new File(pathHtmlFile);
